@@ -1,0 +1,28 @@
+{
+    "name": "discord-cards-bank",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "rimraf ./build && tsc",
+        "start": "npm run build && node build/index.js",
+        "deploy-commands": "npm run build && node build/deploy-commands.js",
+        "start:dev": "nodemon"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^18.11.7",
+        "nodemon": "^2.0.20",
+        "rimraf": "^3.0.2",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.8.4"
+    },
+    "dependencies": {
+        "discord.js": "^14.6.0",
+        "dotenv": "^16.0.3",
+        "sequelize": "^6.25.3",
+        "sqlite3": "^5.1.2"
+    }
+}

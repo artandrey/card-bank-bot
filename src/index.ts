@@ -1,5 +1,6 @@
 import { Client, GatewayIntentBits, Events } from 'discord.js';
 import dotenv from 'dotenv';
+import createCardFromTwitterLink from './card-creator/card-creator';
 import db from './db/db';
 import handleCommand from './handlers/handle-command';
 import standartBankCard from './models/StandartBankCard.model';

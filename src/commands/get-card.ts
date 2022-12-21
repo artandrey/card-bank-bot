@@ -13,7 +13,7 @@ import path from 'path';
 import TwitterLinkBuilder from '../twitter-link-builder/twitter-link-builder';
 
 const command = new SlashCommandBuilder()
-    .setName('get-card')
+    .setName('gm')
     .setDescription('Sends a card');
 
 export default new Command(command, async (interaction) => {

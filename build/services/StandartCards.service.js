@@ -12,7 +12,7 @@ class StandartCardsService {
     static async getRandomCard() {
         const cards = await this.getAllCards();
         cards.shift();
-        const card = cards[Math.floor(Math.random()) * cards.length].get({
+        const card = cards[Math.floor(Math.random() * cards.length)].get({
             plain: true,
         });
         return card;

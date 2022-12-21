@@ -1,12 +1,10 @@
 import { Client, GatewayIntentBits, Events } from 'discord.js';
-import dotenv from 'dotenv';
+import './config';
 import createCardFromTwitterLink from './card-creator/card-creator';
 import db from './db/db';
 import handleCommand from './handlers/handle-command';
 import standartBankCard from './models/StandartBankCard.model';
 import scrapImagesWithLinksByUsername from './twitter-scrapper/twitter-scrapper';
-
-dotenv.config({ path: '.env', debug: true });
 
 const { TOKEN } = process.env;
 

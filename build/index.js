@@ -4,11 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const dotenv_1 = __importDefault(require("dotenv"));
+require("./config");
 const db_1 = __importDefault(require("./db/db"));
 const handle_command_1 = __importDefault(require("./handlers/handle-command"));
-const twitter_scrapper_1 = __importDefault(require("./twitter-scrapper/twitter-scrapper"));
-dotenv_1.default.config({ path: '.env', debug: true });
 const { TOKEN } = process.env;
 const client = new discord_js_1.Client({
     intents: [discord_js_1.GatewayIntentBits.Guilds, discord_js_1.GatewayIntentBits.GuildMessages],
@@ -17,7 +15,7 @@ db_1.default.sync();
 client.once(discord_js_1.Events.ClientReady, (c) => {
     console.log(`Started as @${c.user.tag}`);
 });
-(0, twitter_scrapper_1.default)();
+// scrapImagesWithLinksByUsername();
 client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand())
         return;

@@ -9,7 +9,7 @@ const Command_1 = __importDefault(require("../structures/Command"));
 const path_1 = __importDefault(require("path"));
 const twitter_link_builder_1 = __importDefault(require("../twitter-link-builder/twitter-link-builder"));
 const command = new discord_js_1.SlashCommandBuilder()
-    .setName('get-card')
+    .setName('gm')
     .setDescription('Sends a card');
 exports.default = new Command_1.default(command, async (interaction) => {
     const card = await StandartCards_service_1.default.getRandomCard();
@@ -21,6 +21,7 @@ exports.default = new Command_1.default(command, async (interaction) => {
     if (twitterID) {
         const twitterShareLink = new twitter_link_builder_1.default()
             .addImage(twitterID)
+            .addAccount(process.env.SHARE_ACCOUNT)
             .getLink();
         row.addComponents(new discord_js_1.ButtonBuilder()
             .setStyle(discord_js_1.ButtonStyle.Link)

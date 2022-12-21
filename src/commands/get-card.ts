@@ -34,6 +34,8 @@ export default new Command(command, async (interaction) => {
     if (twitterID) {
         const twitterShareLink = new TwitterLinkBuilder()
             .addImage(twitterID)
+            .addText('Write your message here ')
+            .addAccount(process.env.SHARE_ACCOUNT!)
             .getLink();
         row.addComponents(
             new ButtonBuilder()

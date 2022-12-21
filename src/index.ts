@@ -4,6 +4,7 @@ import createCardFromTwitterLink from './card-creator/card-creator';
 import db from './db/db';
 import handleCommand from './handlers/handle-command';
 import standartBankCard from './models/StandartBankCard.model';
+import scrapImagesWithLinksByUsername from './twitter-scrapper/twitter-scrapper';
 
 dotenv.config({ path: '.env', debug: true });
 
@@ -18,6 +19,8 @@ db.sync();
 client.once(Events.ClientReady, (c) => {
     console.log(`Started as @${c.user.tag}`);
 });
+
+// scrapImagesWithLinksByUsername();
 
 client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand()) return;

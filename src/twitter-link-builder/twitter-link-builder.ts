@@ -29,9 +29,8 @@ class TwitterLinkBuilder {
     getLink() {
         const textQuerry = [
             this.text,
-            TwitterLinkBuilder.TWITTER_PICTURE_LINK_BASE + this.immageID,
-            ,
             this.account,
+            TwitterLinkBuilder.TWITTER_PICTURE_LINK_BASE + this.immageID,
         ].join(' ');
         this.link.searchParams.set('text', textQuerry);
         return this.link.toString();

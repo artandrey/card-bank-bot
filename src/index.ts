@@ -1,10 +1,7 @@
 import { Client, GatewayIntentBits, Events } from 'discord.js';
 import './config';
-import createCardFromTwitterLink from './card-creator/card-creator';
 import db from './db/db';
 import handleCommand from './handlers/handle-command';
-import standartBankCard from './models/StandartBankCard.model';
-import scrapImagesWithLinksByUsername from './twitter-scrapper/twitter-scrapper';
 
 const { TOKEN } = process.env;
 
@@ -18,7 +15,7 @@ client.once(Events.ClientReady, (c) => {
     console.log(`Started as @${c.user.tag}`);
 });
 
-// scrapImagesWithLinksByUsername();
+// scrapImagesWithLinksByUsername('ACbyXPLRS');
 
 client.on(Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand()) return;

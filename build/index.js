@@ -15,10 +15,10 @@ db_1.default.sync();
 client.once(discord_js_1.Events.ClientReady, (c) => {
     console.log(`Started as @${c.user.tag}`);
 });
-// scrapImagesWithLinksByUsername();
+// scrapImagesWithLinksByUsername('ACbyXPLRS');
 client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
     if (!interaction.isChatInputCommand())
         return;
     (0, handle_command_1.default)(interaction);
 });
-client.login(TOKEN);
+// client.login(TOKEN);

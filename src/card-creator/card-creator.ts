@@ -1,5 +1,5 @@
 import https from 'https';
-import StandartCardsService from '../services/StandartCards.service';
+import CardsService from '../services/Cards.service';
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 

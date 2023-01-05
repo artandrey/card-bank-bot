@@ -1,30 +1,28 @@
 import {
     ActionRowBuilder,
-    AttachmentBuilder,
     ButtonBuilder,
     ButtonStyle,
+    CommandInteraction,
     EmbedBuilder,
-    SlashCommandBuilder,
 } from 'discord.js';
+import CardBankController from '../controllers/card-bank-controller';
+import CommandsController from '../controllers/commands-controller';
 import CardsService from '../services/Cards.service';
-import Command from '../structures/Command';
-import path from 'path';
 import TwitterLinkBuilder from '../twitter-link-builder/twitter-link-builder';
 
-const command = new SlashCommandBuilder()
-    .setName('gm')
-    .setDescription('Sends a card');
+const handleCustomCommand = async (interaction: CommandInteraction) => {
+    const rawCommand = await CommandsController.findOne({
+        commandTitle: interaction.commandName,
+        serverID: interaction.guildId!,
+    });
+    const bankCard = await CardBankController.getRandomCard(rawCommand?.id);
 
-export default new Command(command, async (interaction) => {
-    const card = await CardsService.getRandomCard();
-    const { imageUrl, twitterID } = card;
-
-    const exampleEmbed = new EmbedBuilder().setImage(imageUrl);
+    const exampleEmbed = new EmbedBuilder().setImage(bankCard.imageUrl);
 
     const row = new ActionRowBuilder<ButtonBuilder>();
-    if (twitterID) {
+    if (bankCard.twitterID) {
         const twitterShareLink = new TwitterLinkBuilder()
-            .addImage(twitterID)
+            .addImage(bankCard.twitterID)
 
             .addText('Write your message here ')
             .addAccount(process.env.SHARE_ACCOUNT!)
@@ -41,4 +39,6 @@ export default new Command(command, async (interaction) => {
         embeds: [exampleEmbed],
         components: [row],
     });
-});
+};
+
+export default handleCustomCommand;

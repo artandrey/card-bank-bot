@@ -20,12 +20,12 @@ class TwitterLinkBuilder {
         return this;
     }
     getLink() {
-        const textQuerry = this.text +
-            ' ' +
-            TwitterLinkBuilder.TWITTER_PICTURE_LINK_BASE +
-            this.immageID;
+        const textQuerry = [
+            this.text,
+            this.account,
+            TwitterLinkBuilder.TWITTER_PICTURE_LINK_BASE + this.immageID,
+        ].join(' ');
         this.link.searchParams.set('text', textQuerry);
-        this.account && this.link.searchParams.set('via', this.account);
         return this.link.toString();
     }
 }

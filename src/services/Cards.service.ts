@@ -18,6 +18,9 @@ class CardsService {
     static async addNewCard(options: BankCardCreationProps) {
         return await BankCard.create(options);
     }
+    static async deleteCards(id?: number) {
+        await BankCard.destroy({ where: { commandID: id } });
+    }
 }
 
 export default CardsService;

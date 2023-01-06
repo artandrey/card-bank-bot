@@ -1,5 +1,6 @@
 import { Command, CommandCreationProps } from '../models/Command.model';
 import CommandService from '../services/Command.service';
+import CardBankController from './card-bank-controller';
 
 class CommandsController {
     static async createCommand(options: CommandCreationProps) {
@@ -18,6 +19,14 @@ class CommandsController {
         return (await CommandService.findAllBy(
             options
         )) as unknown as Command[];
+    }
+
+    static async deleteCommand(options: Partial<Command>) {
+        const command = await CommandService.findAndDelete(options);
+        // if (command) {
+        //     await CardBankController.deleteBank(command.id);
+        // }
+        return command;
     }
 }
 

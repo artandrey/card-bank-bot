@@ -46,7 +46,10 @@ const checkIsAuthorised = async (page: Page) => {
     }
 };
 
-const scrapImagesWithLinksByUsername = async (username: string) => {
+const scrapImagesWithLinksByUsername = async (
+    username: string,
+    ignorePostIDs: string[] = []
+) => {
     const browser = await puppeteer.launch({
         userDataDir: './browser-data',
         headless: true,
@@ -68,9 +71,9 @@ const scrapImagesWithLinksByUsername = async (username: string) => {
         waitUntil: 'networkidle2',
     });
 
-    const links = await collectAllLinks(page);
-
-    console.log(links);
+    const links = (await collectAllLinks(page)).filter(
+        (link) => !ignorePostIDs.includes(link)
+    );
 
     const pagesWorker = new PagesWorker<string, PageData>(
         browser,

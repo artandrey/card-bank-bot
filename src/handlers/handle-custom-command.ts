@@ -15,7 +15,10 @@ const handleCustomCommand = async (interaction: CommandInteraction) => {
         commandTitle: interaction.commandName,
         serverID: interaction.guildId!,
     });
-    const bankCard = await CardBankController.getRandomCard(rawCommand?.id);
+
+    if (!rawCommand) throw 'Command not found';
+
+    const bankCard = await CardBankController.getRandomCard(rawCommand.id);
 
     const exampleEmbed = new EmbedBuilder().setImage(bankCard.imageUrl);
 
@@ -25,7 +28,7 @@ const handleCustomCommand = async (interaction: CommandInteraction) => {
             .addImage(bankCard.twitterID)
 
             .addText('Write your message here ')
-            .addAccount(process.env.SHARE_ACCOUNT!)
+            .addAccount(rawCommand.twitterUsername)
             .getLink();
         row.addComponents(
             new ButtonBuilder()

@@ -1,3 +1,4 @@
+import deleteBank from '../commands/delete-bank';
 import CardsService from '../services/Cards.service';
 import { PageData } from '../twitter-scrapper/scrap-page';
 import scrapImagesWithLinksByUsername from '../twitter-scrapper/twitter-scrapper';
@@ -9,6 +10,7 @@ class CardBankController {
                 commandID,
                 imageUrl: post.src,
                 twitterID: post.shareID,
+                postID: post.src.split('/').reverse()[0],
             });
         }
     }
@@ -23,6 +25,9 @@ class CardBankController {
             plain: true,
         });
         return card;
+    }
+    static async deleteBank(id?: number) {
+        await CardsService.deleteCards(id);
     }
 }
 

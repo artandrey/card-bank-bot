@@ -11,6 +11,7 @@ export interface BankCard {
 
 export interface BankCardCreationProps {
     imageUrl: string;
+    postID: string;
     twitterID: string | null;
     commandID: number;
 }
@@ -33,6 +34,7 @@ const BankCard = sequelize.define<Model<BankCard, BankCardCreationProps>>(
 BankCard.belongsTo(Command, {
     foreignKey: 'commandID',
     as: 'command',
+    onDelete: 'CASCADE',
 });
 
 export default BankCard;

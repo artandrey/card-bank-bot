@@ -44,7 +44,7 @@ const checkIsAuthorised = async (page) => {
         return false;
     }
 };
-const scrapImagesWithLinksByUsername = async (username) => {
+const scrapImagesWithLinksByUsername = async (username, ignorePostIDs = []) => {
     const browser = await puppeteer_1.default.launch({
         userDataDir: './browser-data',
         headless: true,
@@ -64,8 +64,7 @@ const scrapImagesWithLinksByUsername = async (username) => {
         timeout: 0,
         waitUntil: 'networkidle2',
     });
-    const links = await (0, autoscroll_1.default)(page);
-    console.log(links);
+    const links = (await (0, autoscroll_1.default)(page)).filter((link) => !ignorePostIDs.includes(link));
     const pagesWorker = new pages_worker_1.default(browser, {
         width: 1366,
         height: 768,
@@ -73,6 +72,7 @@ const scrapImagesWithLinksByUsername = async (username) => {
     await pagesWorker.createPages(1);
     pagesWorker.registerTasks(...links);
     const result = await pagesWorker.run();
+    await browser.close();
     return result;
 };
 exports.default = scrapImagesWithLinksByUsername;

@@ -15,6 +15,14 @@ class CommandService {
     static async create(options: CommandCreationProps) {
         return (await CommandModel.create(options)).get();
     }
+    static async findAndDelete(options: Partial<Command>) {
+        const command = await CommandModel.findOne({ where: options });
+
+        if (command) {
+            await command.destroy();
+        }
+        return command?.dataValues;
+    }
 }
 
 export default CommandService;

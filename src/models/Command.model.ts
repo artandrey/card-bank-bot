@@ -8,11 +8,13 @@ export interface Command {
     commandDescription: string | null;
     serverID: string;
     isGlobal: boolean;
+    twitterUsername: string;
 }
 
 export interface CommandCreationProps {
     commandTitle: string;
     serverID: string;
+    twitterUsername: string;
     commandDescription?: string;
     isGlobal?: boolean;
 }
@@ -33,6 +35,9 @@ const Command = sequelize.define<Model<Command, CommandCreationProps>>(
         isGlobal: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
+        },
+        twitterUsername: {
+            type: DataTypes.STRING,
         },
     }
 );

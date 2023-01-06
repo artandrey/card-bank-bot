@@ -16,7 +16,8 @@ class CommandDeployController {
                 .setName(rawCommand.commandTitle)
                 .setDescription(
                     rawCommand.commandDescription || 'Guild command'
-                );
+                )
+                .setDMPermission(false);
             return command.toJSON();
         });
 

@@ -16,6 +16,9 @@ class TwitterLinkBuilder {
         return this;
     }
     addAccount(account) {
+        if (!account.startsWith('@')) {
+            account = '@' + account;
+        }
         this.account = account;
         return this;
     }

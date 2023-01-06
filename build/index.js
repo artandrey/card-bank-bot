@@ -21,4 +21,4 @@ client.on(discord_js_1.Events.InteractionCreate, async (interaction) => {
         return;
     (0, handle_command_1.default)(interaction);
 });
-// client.login(TOKEN);
+client.login(TOKEN);

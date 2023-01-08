@@ -12,6 +12,15 @@ const checkIsUsernameRequired = (page: Page): Promise<boolean> => {
     });
 };
 
+const checkIsCodeRequired = (page: Page): Promise<boolean> => {
+    return new Promise((resolve) => {
+        page.waitForSelector('[data-testid="ocfEnterTextTextInput"]').then(() =>
+            resolve(true)
+        );
+        page.waitForNavigation().then(() => resolve(false));
+    });
+};
+
 const authorize = async (page: Page) => {
     const url = 'https://twitter.com/login';
     page.goto(url, {
@@ -32,7 +41,12 @@ const authorize = async (page: Page) => {
     await page.waitForSelector('[type="password"]');
     await page.type('[type="password"]', process.env.PASSWORD!, { delay: 100 });
     await page.keyboard.press('Enter');
-    await page.waitForNavigation();
+    const codeIsRequired = await checkIsCodeRequired(page);
+    if (codeIsRequired) {
+        const code = prompt('Code is required, enter it');
+        await page.type('[data-testid="ocfEnterTextTextInput"]', code!);
+        await page.keyboard.press('Enter');
+    }
 };
 
 const checkIsAuthorised = async (page: Page) => {

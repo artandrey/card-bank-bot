@@ -52,7 +52,7 @@ const scrapImagesWithLinksByUsername = async (
 ) => {
     const browser = await puppeteer.launch({
         userDataDir: './browser-data',
-        headless: false,
+        headless: true,
         executablePath: process.env.CHROME_PATH,
         args: ['--disable-notifications', '--no-sandbox'],
     });

@@ -4,6 +4,13 @@ import PagesWorker from './pages-worker';
 import prompt from './prompt';
 import scrapPage, { PageData } from './scrap-page';
 
+const BROWSER_CONFIG = {
+    userDataDir: './browser-data',
+    headless: true,
+    executablePath: process.env.CHROME_PATH,
+    args: ['--disable-notifications', '--no-sandbox'],
+};
+
 const checkIsUsernameRequired = (page: Page): Promise<boolean> => {
     return new Promise((resolve) => {
         page.waitForSelector('[data-testid="ocfEnterTextTextInput"]').then(() =>
@@ -22,7 +29,13 @@ const checkIsCodeRequired = (page: Page): Promise<boolean> => {
     });
 };
 
-const authorize = async (page: Page) => {
+export const authorize = async () => {
+    const browser = await puppeteer.launch(BROWSER_CONFIG);
+    const page = await browser.newPage();
+    await page.setViewport({
+        width: 1366,
+        height: 768,
+    });
     const url = 'https://twitter.com/login';
     page.goto(url, {
         timeout: 0,
@@ -52,7 +65,7 @@ const authorize = async (page: Page) => {
 
 const checkIsAuthorised = async (page: Page) => {
     try {
-        await page.goto('https://twitter.com/home');
+        await page.goto('https://twitter.com/');
         await page.waitForNavigation();
 
         const url = page.url();
@@ -68,12 +81,7 @@ const scrapImagesWithLinksByUsername = async (
     username: string,
     ignorePostIDs: string[] = []
 ) => {
-    const browser = await puppeteer.launch({
-        userDataDir: './browser-data',
-        headless: true,
-        executablePath: process.env.CHROME_PATH,
-        args: ['--disable-notifications', '--no-sandbox'],
-    });
+    const browser = await puppeteer.launch(BROWSER_CONFIG);
     const page = await browser.newPage();
     await page.setViewport({
         width: 1366,
@@ -83,7 +91,7 @@ const scrapImagesWithLinksByUsername = async (
     console.log(authResult);
 
     if (!authResult) {
-        await authorize(page);
+        throw Error('Not authorised');
     }
     await page.goto('https://twitter.com/' + username, {
         timeout: 0,

@@ -1,6 +1,7 @@
 import puppeteer, { Page } from 'puppeteer';
 import collectAllLinks from './autoscroll';
 import PagesWorker from './pages-worker';
+import prompt from './prompt';
 import scrapPage, { PageData } from './scrap-page';
 
 const checkIsUsernameRequired = (page: Page): Promise<boolean> => {
@@ -43,8 +44,8 @@ const authorize = async (page: Page) => {
     await page.keyboard.press('Enter');
     const codeIsRequired = await checkIsCodeRequired(page);
     if (codeIsRequired) {
-        const code = prompt('Code is required, enter it');
-        await page.type('[data-testid="ocfEnterTextTextInput"]', code!);
+        const code = await prompt('Code is required, enter it');
+        await page.type('[data-testid="ocfEnterTextTextInput"]', code);
         await page.keyboard.press('Enter');
     }
 };

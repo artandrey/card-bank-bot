@@ -19,11 +19,14 @@ const authorize = async (page: Page) => {
         waitUntil: 'networkidle0',
     });
     await page.waitForSelector('[autocomplete="username"]');
-    await page.type('[autocomplete="username"]', 'artandrey777@ukr.net');
+    await page.type('[autocomplete="username"]', 'cagec81034@dewareff.com');
     await page.keyboard.press('Enter');
     const usernameIsRequired = await checkIsUsernameRequired(page);
     if (usernameIsRequired) {
-        await page.type('[data-testid="ocfEnterTextTextInput"]', 'Artandrey2');
+        await page.type(
+            '[data-testid="ocfEnterTextTextInput"]',
+            'scrapper_xplr'
+        );
         await page.keyboard.press('Enter');
     }
     await page.waitForSelector('[type="password"]');

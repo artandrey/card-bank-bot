@@ -6,7 +6,7 @@ import scrapPage, { PageData } from './scrap-page';
 
 const BROWSER_CONFIG = {
     userDataDir: './browser-data',
-    headless: false,
+    headless: true,
     executablePath: process.env.CHROME_PATH,
     args: ['--disable-notifications', '--no-sandbox'],
 };

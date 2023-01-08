@@ -34,7 +34,7 @@ const authorize = async (page: Page) => {
 
 const checkIsAuthorised = async (page: Page) => {
     try {
-        await page.goto('https://twitter.com/');
+        await page.goto('https://twitter.com/home');
         await page.waitForNavigation();
 
         const url = page.url();
@@ -52,7 +52,7 @@ const scrapImagesWithLinksByUsername = async (
 ) => {
     const browser = await puppeteer.launch({
         userDataDir: './browser-data',
-        headless: true,
+        headless: false,
         executablePath: process.env.CHROME_PATH,
         args: ['--disable-notifications', '--no-sandbox'],
     });

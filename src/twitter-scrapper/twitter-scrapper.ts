@@ -54,7 +54,7 @@ const scrapImagesWithLinksByUsername = async (
         userDataDir: './browser-data',
         headless: true,
         executablePath: process.env.CHROME_PATH,
-        args: ['--disable-notifications'],
+        args: ['--disable-notifications', '--no-sandbox'],
     });
     const page = await browser.newPage();
     await page.setViewport({

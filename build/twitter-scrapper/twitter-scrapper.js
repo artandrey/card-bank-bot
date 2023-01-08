@@ -7,7 +7,6 @@ exports.authorize = void 0;
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const autoscroll_1 = __importDefault(require("./autoscroll"));
 const pages_worker_1 = __importDefault(require("./pages-worker"));
-const prompt_1 = __importDefault(require("./prompt"));
 const scrap_page_1 = __importDefault(require("./scrap-page"));
 const BROWSER_CONFIG = {
     userDataDir: './browser-data',
@@ -49,14 +48,16 @@ const authorize = async () => {
         await page.keyboard.press('Enter');
     }
     await page.waitForSelector('[type="password"]');
+    console.log('found password');
+    console.log(process.env.PASSWORD);
     await page.type('[type="password"]', process.env.PASSWORD, { delay: 100 });
-    await page.keyboard.press('Enter');
-    const codeIsRequired = await checkIsCodeRequired(page);
-    if (codeIsRequired) {
-        const code = await (0, prompt_1.default)('Code is required, enter it');
-        await page.type('[data-testid="ocfEnterTextTextInput"]', code);
-        await page.keyboard.press('Enter');
-    }
+    // await page.keyboard.press('Enter');
+    // // const codeIsRequired = await checkIsCodeRequired(page);
+    // // if (codeIsRequired) {
+    // //     const code = await prompt('Code is required, enter it');
+    // //     await page.type('[data-testid="ocfEnterTextTextInput"]', code);
+    // //     await page.keyboard.press('Enter');
+    // // }
 };
 exports.authorize = authorize;
 const checkIsAuthorised = async (page) => {

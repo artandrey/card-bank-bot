@@ -3,10 +3,11 @@ import collectAllLinks from './autoscroll';
 import PagesWorker from './pages-worker';
 import prompt from './prompt';
 import scrapPage, { PageData } from './scrap-page';
+import '../config';
 
 const BROWSER_CONFIG = {
     userDataDir: './browser-data',
-    headless: true,
+    headless: false,
     executablePath: process.env.CHROME_PATH,
     args: ['--disable-notifications', '--no-sandbox'],
 };

@@ -6,7 +6,7 @@ import scrapPage, { PageData } from './scrap-page';
 
 const BROWSER_CONFIG = {
     userDataDir: './browser-data',
-    headless: true,
+    headless: false,
     executablePath: process.env.CHROME_PATH,
     args: ['--disable-notifications', '--no-sandbox'],
 };
@@ -41,6 +41,7 @@ export const authorize = async () => {
         timeout: 0,
         waitUntil: 'networkidle0',
     });
+    await page.waitForNavigation();
     await page.waitForSelector('[autocomplete="username"]');
     await page.type('[autocomplete="username"]', 'cagec81034@dewareff.com');
     await page.keyboard.press('Enter');

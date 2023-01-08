@@ -7,7 +7,7 @@ import '../config';
 
 const BROWSER_CONFIG = {
     userDataDir: './browser-data',
-    headless: false,
+    headless: true,
     executablePath: process.env.CHROME_PATH,
     args: ['--disable-notifications', '--no-sandbox'],
 };

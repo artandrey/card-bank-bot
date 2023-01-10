@@ -23,6 +23,12 @@ const command = new SlashCommandBuilder()
     )
     .addStringOption((option) =>
         option
+            .setName('share_twitter_username')
+            .setDescription('Username to show when sharing card')
+            .setRequired(true)
+    )
+    .addStringOption((option) =>
+        option
             .setName('description')
             .setDescription('Command description')
             .setRequired(false)
@@ -34,6 +40,9 @@ export default new Command(command, async (interaction) => {
     const command = interaction.options.get('command', true).value as string;
     const twitterUsername = (
         interaction.options.get('twitter_username', true).value as string
+    ).replace('@', '');
+    const shareUsername = (
+        interaction.options.get('share_twitter_username', true).value as string
     ).replace('@', '');
     const description = interaction.options.get('description')?.value as
         | string
@@ -81,7 +90,7 @@ export default new Command(command, async (interaction) => {
             commandDescription: description,
             serverID: interaction.guildId,
             isGlobal: false,
-            twitterUsername,
+            twitterUsername: shareUsername,
         });
 
         await CardBankController.createBank(posts, createdCommand.id);

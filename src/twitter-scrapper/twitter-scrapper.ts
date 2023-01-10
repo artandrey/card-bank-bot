@@ -7,7 +7,7 @@ import '../config';
 
 const BROWSER_CONFIG = {
     userDataDir: './browser-data',
-    headless: true,
+    headless: !!+process.env.HEADLESS!,
     executablePath: process.env.CHROME_PATH,
     args: ['--disable-notifications', '--no-sandbox'],
 };
@@ -44,13 +44,13 @@ export const authorize = async () => {
     });
     await page.waitForNavigation();
     await page.waitForSelector('[autocomplete="username"]');
-    await page.type('[autocomplete="username"]', 'cagec81034@dewareff.com');
+    await page.type('[autocomplete="username"]', process.env.EMAIL!);
     await page.keyboard.press('Enter');
     const usernameIsRequired = await checkIsUsernameRequired(page);
     if (usernameIsRequired) {
         await page.type(
             '[data-testid="ocfEnterTextTextInput"]',
-            'scrapper_xplr'
+            process.env.USERNAME!
         );
         await page.keyboard.press('Enter');
     }

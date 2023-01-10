@@ -40,7 +40,7 @@ const handleCustomCommand = async (interaction: CommandInteraction) => {
         );
     }
 
-    interaction.reply({
+    await interaction.reply({
         embeds: [exampleEmbed],
         components: [row],
     });

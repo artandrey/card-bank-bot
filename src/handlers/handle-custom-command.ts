@@ -22,6 +22,8 @@ const handleCustomCommand = async (interaction: CommandInteraction) => {
 
     const exampleEmbed = new EmbedBuilder().setImage(bankCard.imageUrl);
 
+    console.log(bankCard.imageUrl);
+
     const row = new ActionRowBuilder<ButtonBuilder>();
     if (bankCard.twitterID) {
         const twitterShareLink = new TwitterLinkBuilder()

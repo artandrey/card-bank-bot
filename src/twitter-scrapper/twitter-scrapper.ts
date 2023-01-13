@@ -95,12 +95,12 @@ const scrapImagesWithLinksByUsername = async (
         width: 1366,
         height: 768,
     });
-    const authResult = await checkIsAuthorised(page);
-    console.log(authResult);
+    // const authResult = await checkIsAuthorised(page);
+    // console.log(authResult);
 
-    if (!authResult) {
-        throw Error('Not authorised');
-    }
+    // if (!authResult) {
+    //     throw Error('Not authorised');
+    // }
     await page.goto('https://twitter.com/' + username, {
         timeout: 0,
         waitUntil: 'networkidle2',

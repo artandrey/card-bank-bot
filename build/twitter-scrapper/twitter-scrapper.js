@@ -12,7 +12,7 @@ const scrap_page_1 = __importDefault(require("./scrap-page"));
 require("../config");
 const BROWSER_CONFIG = {
     userDataDir: './browser-data',
-    headless: true,
+    headless: !!+process.env.HEADLESS,
     executablePath: process.env.CHROME_PATH,
     args: ['--disable-notifications', '--no-sandbox'],
 };
@@ -42,11 +42,13 @@ const authorize = async () => {
     });
     await page.waitForNavigation();
     await page.waitForSelector('[autocomplete="username"]');
-    await page.type('[autocomplete="username"]', 'cagec81034@dewareff.com');
+    await page.type('[autocomplete="username"]', process.env.EMAIL, {
+        delay: 100,
+    });
     await page.keyboard.press('Enter');
     const usernameIsRequired = await checkIsUsernameRequired(page);
     if (usernameIsRequired) {
-        await page.type('[data-testid="ocfEnterTextTextInput"]', 'scrapper_xplr');
+        await page.type('[data-testid="ocfEnterTextTextInput"]', process.env.TWITTER_USERNAME, { delay: 100 });
         await page.keyboard.press('Enter');
     }
     await page.waitForSelector('[type="password"]');
@@ -58,6 +60,8 @@ const authorize = async () => {
         await page.type('[data-testid="ocfEnterTextTextInput"]', code);
         await page.keyboard.press('Enter');
     }
+    await browser.close();
+    console.log('AUTHORISED!');
 };
 exports.authorize = authorize;
 const checkIsAuthorised = async (page) => {

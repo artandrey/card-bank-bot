@@ -44,6 +44,7 @@ const handleCustomCommand = async (interaction: CommandInteraction) => {
         embeds: [exampleEmbed],
         components: [row],
     });
+    // await interaction.reply(bankCard.imageUrl);
 };
 
 export default handleCustomCommand;

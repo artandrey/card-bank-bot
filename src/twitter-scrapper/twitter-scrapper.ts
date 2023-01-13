@@ -44,13 +44,17 @@ export const authorize = async () => {
     });
     await page.waitForNavigation();
     await page.waitForSelector('[autocomplete="username"]');
-    await page.type('[autocomplete="username"]', process.env.EMAIL!);
+    await page.type('[autocomplete="username"]', process.env.EMAIL!, {
+        delay: 100,
+    });
+
     await page.keyboard.press('Enter');
     const usernameIsRequired = await checkIsUsernameRequired(page);
     if (usernameIsRequired) {
         await page.type(
             '[data-testid="ocfEnterTextTextInput"]',
-            process.env.USERNAME!
+            process.env.TWITTER_USERNAME!,
+            { delay: 100 }
         );
         await page.keyboard.press('Enter');
     }
@@ -63,6 +67,8 @@ export const authorize = async () => {
         await page.type('[data-testid="ocfEnterTextTextInput"]', code);
         await page.keyboard.press('Enter');
     }
+    await browser.close();
+    console.log('AUTHORISED!');
 };
 
 const checkIsAuthorised = async (page: Page) => {

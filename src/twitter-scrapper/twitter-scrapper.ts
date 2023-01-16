@@ -67,8 +67,8 @@ export const authorize = async () => {
         await page.type('[data-testid="ocfEnterTextTextInput"]', code);
         await page.keyboard.press('Enter');
     }
-    await browser.close();
     console.log('AUTHORISED!');
+    // await browser.close();
 };
 
 const checkIsAuthorised = async (page: Page) => {

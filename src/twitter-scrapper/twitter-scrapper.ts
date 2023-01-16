@@ -68,7 +68,7 @@ export const authorize = async () => {
         await page.keyboard.press('Enter');
     }
     console.log('AUTHORISED!');
-    // await browser.close();
+    await browser.close();
 };
 
 const checkIsAuthorised = async (page: Page) => {

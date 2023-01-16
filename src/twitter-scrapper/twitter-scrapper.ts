@@ -103,7 +103,7 @@ const scrapImagesWithLinksByUsername = async (
     // }
     await page.goto('https://twitter.com/' + username, {
         timeout: 0,
-        waitUntil: 'load',
+        waitUntil: 'networkidle2',
     });
 
     const links = (await collectAllLinks(page)).filter(
@@ -122,7 +122,6 @@ const scrapImagesWithLinksByUsername = async (
     await pagesWorker.createPages(1);
     pagesWorker.registerTasks(...links);
     const result = await pagesWorker.run();
-    await browser.close();
     return result;
 };
 export default scrapImagesWithLinksByUsername;

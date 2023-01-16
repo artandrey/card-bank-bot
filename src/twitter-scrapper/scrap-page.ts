@@ -22,6 +22,7 @@ const scrapPage = async (page: Page, url: string): Promise<PageData> => {
         );
         return img?.src;
     });
+    await page.keyboard.press('r');
     const shareLink = await page.evaluate(() => {
         const linkRegEx = /pic.twitter\.com\/[A-z0-9]{10}$/;
         const shareLinkContainer = Array.from(
@@ -29,6 +30,7 @@ const scrapPage = async (page: Page, url: string): Promise<PageData> => {
         ).find((span) => span.textContent && linkRegEx.test(span.textContent));
         return shareLinkContainer?.textContent;
     });
+    console.log(shareLink, src);
 
     if (!shareLink || !src) throw Error('Failed to get info from page');
 

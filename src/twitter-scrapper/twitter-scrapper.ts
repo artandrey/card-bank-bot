@@ -103,7 +103,7 @@ const scrapImagesWithLinksByUsername = async (
     // }
     await page.goto('https://twitter.com/' + username, {
         timeout: 0,
-        waitUntil: 'networkidle2',
+        waitUntil: 'load',
     });
 
     const links = (await collectAllLinks(page)).filter(

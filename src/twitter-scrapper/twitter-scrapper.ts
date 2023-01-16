@@ -91,6 +91,8 @@ const scrapImagesWithLinksByUsername = async (
 ) => {
     const browser = await puppeteer.launch(BROWSER_CONFIG);
     const page = await browser.newPage();
+    page.setDefaultTimeout(0);
+    page.setDefaultNavigationTimeout(0);
     await page.setViewport({
         width: 1366,
         height: 768,

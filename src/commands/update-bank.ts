@@ -66,5 +66,5 @@ export default new Command(command, async (interaction) => {
 
         return await interaction.editReply('Failed to update this command');
     }
-    await interaction.editReply('Ready!');
+    await interaction.channel?.send('Ready!');
 });

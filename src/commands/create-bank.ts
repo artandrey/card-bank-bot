@@ -99,8 +99,7 @@ export default new Command(command, async (interaction) => {
     } catch (error) {
         console.error(error);
         scrappingController.release(interaction.guildId);
-
         return await interaction.editReply('Failed to add this command');
     }
-    await interaction.editReply('Ready!');
+    await interaction.channel?.send('Ready!');
 });

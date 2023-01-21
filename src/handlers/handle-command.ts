@@ -23,7 +23,7 @@ const handleCommand = async (interaction: ChatInputCommandInteraction) => {
         (await checkCommandInstanceInDB(commandName, interaction.guildId))
     );
     if (!commandInstance && !isInDB)
-        return console.error('Command was not foud');
+        return console.error('Command was not found');
 
     try {
         if (commandInstance) {
@@ -33,7 +33,7 @@ const handleCommand = async (interaction: ChatInputCommandInteraction) => {
         }
     } catch (error) {
         console.error(error);
-        await interaction.reply(
+        await interaction.channel?.send(
             'Something went wrong during executing this command'
         );
     }

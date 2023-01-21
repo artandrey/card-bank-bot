@@ -14,6 +14,8 @@ class PagesWorker<T, R> {
     async createPages(count: number) {
         for (let i = 0; i < count; i++) {
             const page = await this.browser.newPage();
+            page.setDefaultTimeout(0);
+            page.setDefaultNavigationTimeout(0);
             await page.setViewport(this.viewport);
             this.pages.push(page);
         }
